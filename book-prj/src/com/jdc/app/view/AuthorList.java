@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jdc.app.entity.Author;
 import com.jdc.app.service.AuthorService;
+import com.jdc.app.util.TableFormatter;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -25,6 +26,8 @@ public class AuthorList {
 	private TableView<Author> tblList;
 	@FXML
 	private TableColumn<Author, String> nameCol;
+	@FXML
+	private TableColumn<Author, Integer> ageCol;
 	@FXML
 	private TableColumn<Author, String> countryCol;
 	
@@ -69,6 +72,14 @@ public class AuthorList {
 		nameCol.setOnEditCommit(e -> {
 			Author data = e.getRowValue();
 			data.setName(e.getNewValue());
+			authService.update(data);
+			search();
+		});
+		
+		ageCol.setCellFactory(TextFieldTableCell.forTableColumn(new TableFormatter()));
+		ageCol.setOnEditCommit(e -> {
+			Author data = e.getRowValue();
+			data.setAge(e.getNewValue());
 			authService.update(data);
 			search();
 		});
