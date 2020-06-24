@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,7 +32,7 @@ public class BookService {
 	public void add(Book book) {
 		String sql = "Insert into book(name, price, released_date, remark, category_id, author_id) values(?, ?, ?, ?, ?, ?)";
 		try (Connection conn = ConnectionManager.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(sql)){
+				PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			
 			stmt.setString(1, book.getName());
 			stmt.setInt(2, book.getPrice());
@@ -40,6 +41,11 @@ public class BookService {
 			stmt.setInt(5, book.getCategory().getId());
 			stmt.setInt(6, book.getAuthor().getId());
 			stmt.executeUpdate();
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			while (rs.next()) {
+				book.setId(rs.getInt(1));
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

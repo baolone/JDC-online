@@ -63,7 +63,11 @@ public class BookList {
 	}
 	
 	private void listener(Book book) {
-		listener.accept(book);
+		if(book.getId() == 0) {
+			BookService.getInstance().add(book);
+		} else {
+			BookService.getInstance().update(book);
+		}
 		search();
 	}
 	

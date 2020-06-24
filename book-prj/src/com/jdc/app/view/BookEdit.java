@@ -47,12 +47,16 @@ public class BookEdit {
 	
 	private static Stage stage;
 	
+	private Consumer<Book> saveHandler;
+	
+	
 	public static void show(Book book, Consumer<Book> saveHandler) {
 		try {
 			FXMLLoader loader = new FXMLLoader(BookEdit.class.getResource("BookEdit.fxml"));
 			stage = new Stage();
 			Parent view = loader.load();
 			BookEdit controller = loader.getController();
+			controller.saveHandler = saveHandler;
 			controller.setData(book);
 			stage.setScene(new Scene(view));
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -80,12 +84,13 @@ public class BookEdit {
 				throw new ApplicationException("Please select author name!");
 			
 			book.setName(bookName.getText());
-			if(null == bookName.getText() && bookName.getText().isEmpty())
+			if(bookName.getText().isEmpty())
 				throw new ApplicationException("Please enter book name!");
 			
-			book.setPrice(Integer.parseInt(price.getText()));
-			if(null == price.getText() && price.getText().isEmpty())
+			
+			if(price.getText().isEmpty())
 				throw new ApplicationException("Please enter book price!");
+			book.setPrice(Integer.parseInt(price.getText()));
 			
 			book.setReleaseDate(releaseDate.getValue());
 			if(null == releaseDate.getValue())
@@ -93,11 +98,8 @@ public class BookEdit {
 			
 			book.setRemark(remark.getText());
 			
-			if(bookIsNull) {
-				BookService.getInstance().add(book);
-			} else {
-				BookService.getInstance().update(book);
-			}
+			
+			saveHandler.accept(book);
 			
 			close();
 			
