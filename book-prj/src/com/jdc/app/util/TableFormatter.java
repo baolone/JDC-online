@@ -7,7 +7,7 @@ import javafx.util.StringConverter;
 
 public class TableFormatter extends StringConverter<Integer> {
 
-	private static DecimalFormat DF = new DecimalFormat("#, ##0");
+	private static DecimalFormat DF = new DecimalFormat("#,##0");
 	
 	@Override
 	public Integer fromString(String str) {

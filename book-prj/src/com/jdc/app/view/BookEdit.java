@@ -8,7 +8,6 @@ import com.jdc.app.entity.Author;
 import com.jdc.app.entity.Book;
 import com.jdc.app.entity.Category;
 import com.jdc.app.service.AuthorService;
-import com.jdc.app.service.BookService;
 import com.jdc.app.service.CategoryService;
 import com.jdc.app.util.ApplicationException;
 
@@ -75,17 +74,17 @@ public class BookEdit {
 				book = new Book();
 			}
 			
-			book.setCategory(category.getValue());
-			if(null == category.getValue()) 
+			if(null == category.getValue())
 				throw new ApplicationException("Please select category!");
+			book.setCategory(category.getValue());
 			
-			book.setAuthor(authorName.getValue());
 			if(null == authorName.getValue())
 				throw new ApplicationException("Please select author name!");
+			book.setAuthor(authorName.getValue());
 			
-			book.setName(bookName.getText());
 			if(bookName.getText().isEmpty())
 				throw new ApplicationException("Please enter book name!");
+			book.setName(bookName.getText());
 			
 			
 			if(price.getText().isEmpty())

@@ -1,14 +1,6 @@
 package com.jdc.app.entity;
 
-import java.io.Serializable;
-
-public class Author implements Serializable{
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Author{
 	
 	private int id;
 	private String name;

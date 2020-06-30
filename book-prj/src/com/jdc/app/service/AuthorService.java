@@ -85,7 +85,7 @@ public class AuthorService {
 			params.add("%".concat(name).concat("%"));
 		}
 				
-		if(age < 0) {
+		if(age > 0) {
 			sb.append(" and age >= ?");
 			params.add(age);
 		}

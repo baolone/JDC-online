@@ -49,7 +49,8 @@ public class BookList {
 	public void clear() {
 		category.setValue(null);
 		authorName.setValue(null);
-		releaseDate.setValue(LocalDate.now());
+		releaseDate.setValue(null);
+		tblList.getItems().clear();
 	}
 	
 	private void loadCategory() {
@@ -124,7 +125,7 @@ public class BookList {
 		loadCategory();
 		loadAuthor();
 		createMenu();
-//		search();
+		search();
 		
 		category.valueProperty().addListener((a, b, c) -> search());
 		authorName.valueProperty().addListener((a, b, c) -> search());

@@ -71,6 +71,9 @@ public class Home {
 		bookService = BookService.getInstance();
 		loadCategory();
 		search();
+		
+		category.valueProperty().addListener((a, b, c) -> search());
+		bookName.textProperty().addListener((a, b, c) -> search());
 //		System.out.println(catService.findAll());
 	}
 }

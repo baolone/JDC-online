@@ -33,7 +33,6 @@ public class AuthorList {
 	
 	private AuthorService authService;
 	
-	
 	public void add() {
 		Author author = new Author();
 		if(!name.getText().isEmpty())
